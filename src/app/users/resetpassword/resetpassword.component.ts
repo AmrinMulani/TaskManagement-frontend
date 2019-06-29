@@ -48,8 +48,7 @@ export class ResetpasswordComponent implements OnInit {
         if (apiResponse.status === 200) {
 
           this.toastr.success("Password reset successfully!!");
-
-          this._router.navigate([["/login"]]);
+          this._router.navigate(["/login"]);
         } else {
           console.log(apiResponse);
           this.toastr.error(apiResponse.message);
