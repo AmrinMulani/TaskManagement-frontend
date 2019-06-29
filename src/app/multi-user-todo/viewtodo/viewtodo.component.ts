@@ -94,6 +94,7 @@ export class ViewtodoComponent implements OnInit {
 
   }
   public editListToDo = (template: TemplateRef<any>, listTodo, oldtitle1) => {
+    console.log(listTodo)
     this.modalRef = this.modalService.show(template, { class: 'modal-sm' });
     this.title = listTodo.title;
     this.oldtitle = oldtitle1
@@ -125,7 +126,8 @@ export class ViewtodoComponent implements OnInit {
           this.getTodo(this.createdBy);
           const obj = {
             message: todoObj.remarks,
-            senderId: this.currentUser
+            senderId: this.currentUser,
+            createdBy: this.createdBy
           };
           this.socketService.sendMultiTodoInfo(obj)
           this.modalRef.hide();
