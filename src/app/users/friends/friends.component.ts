@@ -36,7 +36,7 @@ export class FriendsComponent implements OnInit {
     this.currentUser = localStg.userDetails.userId;
     this.userInfo = this._service.getUserInfoFromLocalStorage()
     this.currentuserName = localStg.userDetails.fullName
-    console.log('\n\n\ncurrentusername ' + this.currentuserName)
+
     this.authToken = localStg.authToken;
     this.getUserList()
     this.getPendingList()
@@ -78,9 +78,7 @@ export class FriendsComponent implements OnInit {
 
           console.log(this.pendingArray);
 
-        } //else {
-        // this.toastr.error(apiResponse.data.message, 'Error')
-        //}
+        }
       }
     );
   }
@@ -90,11 +88,10 @@ export class FriendsComponent implements OnInit {
     this._service.getFriendUser(this.currentUser, this.authToken).subscribe(
       apiResponse => {
         if (apiResponse.status === 200) {
-          //this.toast.success('Parent Lis4t Found', 'Success');
+
           this.requestArray = apiResponse["data"].friendRequestRecieved;
-          console.log("request")
-          console.log(apiResponse["data"])
-          // this.pendingArray = pendingArray1.friendRequestSent;
+
+
           console.log(this.requestArray);
           this.getFriendlist();
         }
@@ -105,21 +102,14 @@ export class FriendsComponent implements OnInit {
 
 
   public getFriendlist = () => {
-    console.log("friends")
-    console.log(Cookie.get('userId'))
+
     this._service.getFriend(Cookie.get('userId'), this.authToken).subscribe(
       apiResponse => {
         if (apiResponse.status === 200) {
-          //this.toast.success('Parent Lis4t Found', 'Success');
+
           this.friendArray = apiResponse["data"];
-          console.log("friends")
-          console.log(apiResponse["data"])
 
-          console.log(this.friendArray);
-
-        }// else {
-        //this.toastr.error(apiResponse.message, 'Error')
-        //} 
+        }
       }
     );
   }
@@ -137,7 +127,7 @@ export class FriendsComponent implements OnInit {
 
     this._service.acceptFriend(data).subscribe(
       (apiResponse) => {
-        console.log(apiResponse);
+
         if (apiResponse.status === 200) {
           this.toastr.success('Friendrequest Accept  successfully', 'Success');
 
@@ -166,9 +156,7 @@ export class FriendsComponent implements OnInit {
   }
 
   public sendFriendRequest = (friend) => {
-    console.log("send Friend")
-    console.log(friend.userId, friend.fullName)
-    console.log(Cookie.get('receiverName'))
+
     let data = {
       senderId: Cookie.get('userId'),
       senderName: Cookie.get('receiverName'),
@@ -176,7 +164,7 @@ export class FriendsComponent implements OnInit {
       recieverName: friend.fullName,
       authToken: Cookie.get('authToken')
     }
-    console.log("Receiverid" + data.recieverName)
+
     this._service.requesttoFriend(data).subscribe(
       (apiResponse) => {
         console.log(apiResponse);
@@ -205,10 +193,8 @@ export class FriendsComponent implements OnInit {
 
 
   public rejectFriendRequest = (friend) => {
-    console.log("reject Friend")
-    console.log(friend.friendId, friend.friendName)
-    console.log(Cookie.get('receiverName'))
-    if (confirm('Do you really want to delete this item?')) {
+
+    if (confirm('Do you really want to delete this request?')) {
       let data = {
         senderId: Cookie.get('userId'),
         senderName: Cookie.get('receiverName'),
@@ -219,7 +205,7 @@ export class FriendsComponent implements OnInit {
       console.log("Receiverid" + data.recieverName)
       this._service.rejectFriend(data).subscribe(
         (apiResponse) => {
-          console.log(apiResponse);
+
           if (apiResponse.status === 200) {
             this.getUserList()
             this.toastr.success("Request has Decline", 'Success')

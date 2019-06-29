@@ -25,7 +25,7 @@ export class TodoListComponent implements OnInit {
     let localStg = JSON.parse(localStorage.getItem('userInfo'));
     this.currentUser = localStg.userDetails.userId;
     this.authToken = localStg.authToken;
-    //this.toDoParentId = this._route.snapshot.paramMap.get('listId');
+
     console.log(this.currentUser)
     console.log(this.authToken)
     this.getAllList()
@@ -34,7 +34,7 @@ export class TodoListComponent implements OnInit {
 
   //create new one 
   public addItem1 = () => {
-    //this.openSpinner(true);
+
     const todoObj = {
       title: this.title,
       createdBy: this.currentUser,
@@ -62,7 +62,7 @@ export class TodoListComponent implements OnInit {
       }
     );//end of service call
 
-    //this.openSpinner(false);
+
   };//end of addItemFunction
 
   //get list 
@@ -71,7 +71,7 @@ export class TodoListComponent implements OnInit {
     this._service.getToDoList(this.currentUser, this.authToken).subscribe(
       apiResponse => {
         if (apiResponse.status === 200) {
-          //this.toast.success('Parent Lis4t Found', 'Success');
+
           this.toDoListArray = apiResponse["data"];
           console.log(this.toDoListArray);
         } else {
@@ -83,7 +83,7 @@ export class TodoListComponent implements OnInit {
 
   //delete the list 
   public deleteListById = (listObj) => {
-    // console.log("list Id  -" + listObj.listId)
+
     if (confirm('Do you want to delete this list?')) {
       this._service.deleteListById(listObj.listId, this.authToken).subscribe(
         apiResponse => {
@@ -114,8 +114,6 @@ export class TodoListComponent implements OnInit {
         title: this.title,
         createdBy: this.currentUser,
         isComplete: false,
-        //listId: this.listId,
-        //taskId: this.taskId,
         authToken: this.authToken
 
       };
@@ -128,7 +126,7 @@ export class TodoListComponent implements OnInit {
             this.title = ''; this.editMode = false;
             this.getAllList();
 
-            //this.toastr.error(apiResponse.message, 'Error')
+
           }
         }, (error) => {
 
@@ -136,24 +134,21 @@ export class TodoListComponent implements OnInit {
         }
       );
 
-      //OPEN FOLDER OF THIS PROJECT EK MIN SSS tumhai folder ka path chaiye tha?
-
       this.resetValuesToDefault();
     } else {
       let todoObj = {
         listId: this.listId,
-        // taskId: this.taskId,
+
         title: this.title,
         createdBy: this.currentUser,
         authToken: this.authToken
       };
 
-      //console.log(subToDoitemData)
       this._service.createTodoList(todoObj).subscribe(
         (apiResponse) => {
 
           if (apiResponse.status === 200) {
-            this.toastr.success('Saved successfully', 'Success');
+            this.toastr.success('List Created successfully', 'Success');
             this.title = '';
             this.getAllList();
           } else {
@@ -199,7 +194,7 @@ export class TodoListComponent implements OnInit {
 
         if (apiResponse.status === 200) {
           this.getAllList()
-          this.toastr.success('Updated successfully', 'Success');
+          this.toastr.success('List Updated successfully', 'Success');
           this.title = '';
 
         } else {

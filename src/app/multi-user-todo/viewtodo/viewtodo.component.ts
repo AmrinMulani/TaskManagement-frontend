@@ -122,7 +122,7 @@ export class ViewtodoComponent implements OnInit {
         if (apiResponse.status === 200) {
 
           this.toastr.success('Updated successfully', 'Success');
-          // this.broadCastNotification(apiResponse.data);
+
           this.getTodo(this.createdBy);
           const obj = {
             message: todoObj.remarks,
@@ -134,7 +134,7 @@ export class ViewtodoComponent implements OnInit {
         } else {
 
           console.log(apiResponse)
-          // alert(apiResponse.message)
+
           this.toastr.error(apiResponse.message, 'Error')
         }
       },

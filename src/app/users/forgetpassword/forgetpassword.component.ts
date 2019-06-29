@@ -30,6 +30,7 @@ export class ForgetpasswordComponent implements OnInit {
         (apiResponse) => {
           if (apiResponse.status === 200) {
             this.toastr.info('An email with password reset link has been sent to you on your email');
+            this._router.navigate(["/login"]);
             // this.cancelForgetPassword.emit(false);
           } else {
             this.toastr.error(apiResponse.message);

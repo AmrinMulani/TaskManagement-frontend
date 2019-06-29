@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import { ToastrService } from 'ngx-toastr';
-import { Cookie } from 'ng2-cookies/ng2-cookies';
+
 
 @Component({
   selector: 'app-resetpassword',
@@ -43,20 +43,12 @@ export class ResetpasswordComponent implements OnInit {
         password: this.resetPassword
       };
 
-
-
       this.service.resetPasswordFunction(data).subscribe(apiResponse => {
-        console.log(apiResponse);
+
         if (apiResponse.status === 200) {
-          // console.log(apiResponse);
-          this.toastr.success("Logged in successfully!!");
-          // Cookie.set("authToken", apiResponse.data.authToken);
-          //Cookie.set("userId", apiResponse.data.userDetails.userId);
-          // Cookie.set("receiverName", apiResponse.data.userDetails.firstName + " " + apiResponse.data.userDetails.lastName);
-          // this.service.setUserInfoInLocalStorage(apiResponse.data);
-          console.log("login");
-          //this.router.navigate(["/home", apiResponse.data.userDetails.userId]);
-          //navigatin to dashboard if successfull....
+
+          this.toastr.success("Password reset successfully!!");
+
           this._router.navigate([["/login"]]);
         } else {
           console.log(apiResponse);

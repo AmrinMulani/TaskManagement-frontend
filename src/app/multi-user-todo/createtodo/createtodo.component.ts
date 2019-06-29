@@ -175,7 +175,7 @@ export class CreatetodoComponent implements OnInit {
 
         if (apiResponse.status === 200) {
           this.getAllList()
-          this.toastr.success('list Complete update successfully', 'Success');
+          this.toastr.success('List Complete Successfully', 'Success');
           this.title = '';
           //this.getAllList
         } else {
