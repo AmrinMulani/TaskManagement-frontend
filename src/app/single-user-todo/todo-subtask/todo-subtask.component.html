@@ -1,0 +1,46 @@
+<app-navigation>
+
+  <div class="card">
+    <div class="card-header" *ngIf="subToDoListItemArray">
+      <code>Add Sub-Task to Task <strong>"{{subToDoListItemArray.title}}"</strong> </code>
+    </div>
+    <div class="card-body">
+      <form #createSubToDoForm="ngForm" (ngSubmit)="createSubTodoItem()">
+        <div class="form-group">
+          <label for="title">Sub ToDo Description:</label>
+          <input type="text" name="title" [(ngModel)]="title" #name="ngModel" id="title" required class="form-control"
+            [ngClass]="name.valid && (name.dirty || name.touched) ? 'is-valid text-capitalize' : 'is-invalid text-capitalize'"
+            id="itemDescription" />
+        </div>
+        <button type="submit" class="btn btn-success"
+          [disabled]="!createSubToDoForm.form.valid">{{editMode ? "Update" : "Save Sub-Task"}}</button>
+
+        <button class="btn btn-primary ml-3" *ngIf="editMode" (click)="resetValuesToDefault()">Cancel</button>
+
+        <button type="button" class="btn btn-warning pull-right" (click)="goBackToPreviousPage()">Go Back</button>
+
+      </form>
+      <ul class="list-group" *ngIf="subToDoListItemArray.subitemTodo">
+        <li class="list-group-item mt-2" *ngFor="let todo of subToDoListItemArray.subitemTodo">
+          <span class="hover-cursor" [class.text-success]="todo.isComplete">
+            <i class="fa fa-lg" [ngClass]="todo.isComplete ? 'fa fa-check-circle-o' : 'fa fa-circle-thin'"
+              placement="top" tooltip="Mark Complete" (click)="changeIsComplete(todo)"></i>
+          </span>
+          <span [ngClass]="todo.isComplete ? 'task-completed ml-2' : 'ml-2'">{{todo.title}}</span>
+          <span class="hover-cursor text-danger pull-right" placement="top" tooltip="Delete">
+            <i class="fa fa-trash-o fa-lg" (click)="deleteSubToDo(todo)"></i>
+          </span>
+          <span *ngIf="!todo.isComplete" class="hover-cursor text-warning pull-right mr-2" placement="top"
+            tooltip="Edit item">
+            <i class="fa fa-pencil fa-lg" (click)="editSubToDo(todo)"></i>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</app-navigation>
+
+
+<!--   
+  
+  <router-outlet></router-outlet> -->

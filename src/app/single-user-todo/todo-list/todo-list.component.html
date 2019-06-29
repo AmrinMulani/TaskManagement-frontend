@@ -1,0 +1,51 @@
+<app-navigation>
+
+  <div class="card">
+    <div class="card-header">
+      <code>Add todo List  </code>
+    </div>
+    <div class="card-body">
+      <form #createSubToDoForm="ngForm" (ngSubmit)="addItem()">
+        <div class="form-group">
+          <label for="title">List Description:</label>
+          <input type="text" name="title" [(ngModel)]="title" #name="ngModel" id="title" required class="form-control"
+            [ngClass]="name.valid && (name.dirty || name.touched) ? 'is-valid text-capitalize' : 'is-invalid text-capitalize'"
+            id="itemDescription" />
+        </div>
+        <button type="submit" class="btn btn-success"
+          [disabled]="!createSubToDoForm.form.valid">{{editMode ? "Update" : "Save List"}}</button>
+
+        <button class="btn btn-primary ml-3" *ngIf="editMode" (click)="resetValuesToDefault()">Cancel</button>
+
+        <!-- <button type="button" class="btn btn-warning pull-right" (click)="goBackToPreviousPage()">Go Back</button>-->
+
+      </form>
+      <ul class="list-group" *ngIf="toDoListArray">
+        <li class="list-group-item mt-2" *ngFor="let todo of toDoListArray">
+          <span class="hover-cursor" [class.text-success]="todo.isComplete">
+            <i class="fa fa-lg" [ngClass]="todo.isComplete ? 'fa fa-check-circle-o' : 'fa fa-circle-thin'"
+              placement="top" tooltip="Mark Complete" (click)="changeIsComplete(todo)"></i>
+          </span>
+          <span [ngClass]="todo.isComplete ? 'task-completed ml-2' : 'ml-2'">{{todo.title}}</span>
+
+
+          <span class="hover-cursor text-danger pull-right" placement="top" tooltip="Delete">
+            <i class="fa fa-trash-o fa-lg" (click)="deleteListById(todo)"></i>
+          </span>
+          <span *ngIf="!todo.isComplete" class="hover-cursor text-warning pull-right mr-2" placement="top"
+            tooltip="Edit item">
+            <i class="fa fa-pencil fa-lg" (click)="editListToDo(todo)"></i>
+          </span>
+          <span class="hover-cursor text-success pull-right">
+            <i class="fa fa-plus-circle fa-lg mr-2" [routerLink]="['/list', todo.listId]"></i>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</app-navigation>
+
+
+<!--   
+  
+  <router-outlet></router-outlet> -->

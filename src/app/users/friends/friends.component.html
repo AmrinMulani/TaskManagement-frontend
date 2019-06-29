@@ -1,0 +1,81 @@
+<app-navigation>
+
+
+  <div class="row">
+
+    <div class="col-sm-12 col-md-4 col-lg-3">
+      <div class="card card-block">
+        <div class="card-block">
+          <h4 class="card-header text-center ">People you may know</h4>
+          <div class="card-body" *ngIf="userArray">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" *ngFor="let user of userArray">
+                {{user.fullName}}
+                <span class="hover-cursor text-success pull-right">
+                  <i class="fa fa-user-plus" (click)="sendFriendRequest(user)"></i>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-4 col-lg-2">
+      <div class="card card-block">
+
+        <div class="card-block">
+          <h4 class="card-header text-center ">Pending Request</h4>
+          <div class="card-body" *ngIf="pendingArray && pendingArray.length>0">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" *ngFor="let friend of pendingArray">
+                {{friend.friendName}}
+              </li>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-4 col-lg-4">
+      <div class="card card-block">
+
+        <div class="card-block">
+          <h4 class="card-header text-center "> Friend Requested </h4>
+          <div class="card-body" *ngIf="requestArray">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" *ngFor="let friend of requestArray">
+                {{friend.friendName}}
+                <span class="hover-cursor text-success pull-right">
+                  <span class="hover-cursor text-success pull-right  mr-1">
+                    <!--     <button type="submit" class="btn btn-danger" (click)="rejectFriendRequest(friend)">Delete
+                    </button>-->
+                  </span>
+                  <span class="hover-cursor text-success pull-right  mr-1">
+                    <button type="submit" class="btn btn-success" (click)="acceptedFriend(friend)">Confirm
+                    </button>
+                  </span>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-4 col-lg-3">
+      <div class="card card-block">
+        <div class="card-block">
+          <h4 class="card-header text-center ">Friends</h4>
+          <div class="card-body" *ngIf="friendArray">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item" *ngFor="let friend of friendArray?.friends">
+                {{friend.friendName}}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</app-navigation>

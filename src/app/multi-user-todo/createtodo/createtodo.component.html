@@ -1,0 +1,72 @@
+<app-navigation>
+  <div class="card">
+    <div class="card-header">
+      <code>Add todo List  </code>
+    </div>
+    <div class="card-body">
+      <form #createSubToDoForm="ngForm" (ngSubmit)="saveToDoItem()">
+        <div class="form-group">
+          <label for="title">List Description:</label>
+          <input type="text" name="title" [(ngModel)]="title" #name="ngModel" id="title" required class="form-control"
+            [ngClass]="name.valid && (name.dirty || name.touched) ? 'is-valid text-capitalize' : 'is-invalid text-capitalize'"
+            id="itemDescription" />
+        </div>
+        <button type="submit" class="btn btn-success"
+          [disabled]="!createSubToDoForm.form.valid">{{editMode ? "Update" : "Save List"}}</button>
+
+        <button class="btn btn-primary ml-3" *ngIf="editMode" (click)="resetValuesToDefault()">Cancel</button>
+
+      </form>
+      <ul class="list-group" *ngIf="toDoListArray">
+        <li class="list-group-item mt-2" *ngFor="let todo of toDoListArray">
+          <span class="hover-cursor" [class.text-success]="todo.isCompleted">
+            <i class="fa fa-lg" [ngClass]="todo.isCompleted ? 'fa fa-check-circle-o' : 'fa fa-circle-thin'"
+              placement="top" tooltip="Mark Complete" (click)="changeIsComplete(todo)"></i>
+          </span>
+          <span [ngClass]="todo.isCompleted ? 'task-completed ml-2' : 'ml-2'">{{todo.title}}</span>
+
+          <span class="hover-cursor text-primary pull-right ml-2" placement="top" tooltip="History">
+            <i class="fa fa-info-circle fa-lg" [routerLink]="['/multitodo/history', todo.multiToDoId]"></i>
+          </span>
+
+
+          <span class="hover-cursor text-danger pull-right" placement="top" tooltip="Delete">
+            <i class="fa fa-trash-o fa-lg" (click)="deleteList(todo)"></i>
+          </span>
+          <span *ngIf="!todo.isCompleted" class="hover-cursor text-warning pull-right mr-2" placement="top"
+            tooltip="Edit item">
+            <i class="fa fa-pencil fa-lg" (click)="editListToDo(todo,todo.title)"></i>
+          </span>
+
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">History of ToDo</h5>
+          ...<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="my-3 p-3 bg-white rounded shadow-sm">
+            <h6 class="border-bottom border-gray pb-2 mb-0">Recent updates</h6>
+            <div class="" *ngIf="historyToDo">
+              <div class="media text-muted pt-3" *ngFor="let history of historyToDo">
+                <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                  <strong class="d-block text-gray-dark">@{{history.editBy}}</strong>
+                  <strong class="pull-right">{{history.createdOn |date:'medium'}}</strong>{{history.remarks}}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-navigation>

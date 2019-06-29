@@ -1,0 +1,80 @@
+<app-navigation>
+  <div class="row">
+    <div class="col-4">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-title  text-center">
+            <h4>Friends</h4>
+          </div>
+          <div class="list-group" id="list-tab" role="tablist" *ngIf="friendArray">
+
+            <a class="list-group-item list-group-item-action " id="list-profile-list" data-toggle="list"
+              href="#list-profile" (click)="getTodo(friend.friendId)" role="tab" aria-controls="profile"
+              [class.active]="selectedFriend === friend.friendId" *ngFor="let friend of friendNewArray">
+              {{friend.friendName}} </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-title  text-center">
+            <h4>ToDo List </h4>
+          </div>
+          <ul class="list-group" *ngIf="toDoListArray">
+            <li class="list-group-item mt-2" *ngFor="let todo of toDoListArray">
+              <span class="hover-cursor" [class.text-success]="todo.isCompleted">
+                <i class="fa fa-lg" [ngClass]="todo.isCompleted ? 'fa fa-check-circle-o' : 'fa fa-circle-thin'"
+                  placement="top" tooltip="Mark Complete" (click)="changeIsComplete(todo)"></i>
+              </span>
+              <span [ngClass]="todo.isCompleted ? 'task-completed ml-2' : 'ml-2'">{{todo.title}}</span>
+              <span class="hover-cursor text-primary pull-right ml-2" placement="top" tooltip="History">
+                <i class="fa fa-info-circle fa-lg" [routerLink]="['/multitodo/history', todo.multiToDoId]"></i>
+              </span>
+              <span class="hover-cursor text-danger pull-right" placement="top" tooltip="Delete">
+                <i class="fa fa-trash-o fa-lg" (click)="deleteList(todo)"></i>
+              </span>
+              <span *ngIf="!todo.isCompleted" class="hover-cursor text-warning pull-right mr-2" placement="top"
+                tooltip="Edit item">
+                <i class="fa fa-pencil fa-lg" (click)="editListToDo(template,todo,todo.title)" data-toggle="modal"
+                  data-target="#exampleModal1"></i>
+              </span>
+            </li>
+          </ul>
+
+          <div *ngIf="toDoListArray?.length<1">
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+              <strong>Hi!</strong> Your friend have no multi todo.
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-template #template>
+    <div class="modal-body text-center">
+
+      <form #updateToDoListForm="ngForm" (ngSubmit)="updateToDo()">
+        <div class="form-group">
+
+          <input type="text" name="title" [(ngModel)]="title" #name="ngModel" id="title" required class="form-control"
+            [ngClass]="name.valid && (name.dirty || name.touched) ? 'is-valid text-capitalize' : 'is-invalid text-capitalize'"
+            id="itemDescription" />
+
+        </div>
+        <div class="modal-footer">
+
+          <button type="submit" class="btn btn-primary" [disabled]="!updateToDoListForm.form.valid">Update</button>
+          <button type="button" class="btn btn-secondary" (click)="decline()">Cancel</button>
+
+        </div>
+      </form>
+    </div>
+  </ng-template>
+
+</app-navigation>

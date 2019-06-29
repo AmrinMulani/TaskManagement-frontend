@@ -1,0 +1,98 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5">
+  <a class="navbar-brand" href="/">
+    ToDo App
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02"
+    aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <!-- <div class="navbar-expand mr-auto"> -->
+  <div class="collapse navbar-collapse" id="navbarColor02">
+    <div class="form-inline my-2 my-lg-0">
+      <ul class="navbar-nav my-2 my-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" (click)="goToSignIn()">Sign In</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class="container">
+  <div class="row p-0 m-0">
+    <div class="col-sm"></div>
+    <div class="col-sm p-2">
+      <div class="login_wrap">
+        <form #createSignupForm="ngForm">
+          <div class="form-group row">
+            <label for="inputFirstName" class="col-sm-4 col-form-label">First Name</label>
+
+            <div class="col-sm-8">
+              <input type="text" id="inputFirstName" class="form-control" [(ngModel)]="firstName" name="firstName"
+                required autofocus />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputLastName" class="col-sm-4 col-form-label">Last Name</label>
+            <div class="col-sm-8">
+              <input type="text" id="inputLastName" class="form-control" [(ngModel)]="lastName" name="lastName"
+                required />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputEmail" class="col-sm-4 col-form-label">Email</label>
+            <div class="col-sm-8">
+              <input type="email" id="inputEmail" class="form-control" [(ngModel)]="email" name="email" required
+                email />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputPassword" class="col-sm-4 col-form-label">Password</label>
+            <div class="col-sm-8">
+              <input type="password" id="inputPassword" [(ngModel)]="password" name="password" required
+                class="form-control" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputCountry" class="col-sm-4 col-form-label">Country</label>
+
+            <div class="col-sm-8">
+              <select name="blogCategory" (change)="onChange($event)" [(ngModel)]="countryCategory" #category="ngModel"
+                required class="form-control" id="category">
+                <option *ngFor="let category of countryName1 | keyvalue" [value]="category.key">
+                  {{ category.value }}</option>
+              </select>
+              <!-- <input type="password" id="inputCountry" [(ngModel)]="model.password" name="password" required
+                class="form-control" /> -->
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="inputMobileNumber" class="col-sm-4 col-form-label">Mobile Number</label>
+            <div class="col-sm-8">
+              <div class="form-group">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" *ngIf="selectedCountryCode">
+                      {{ selectedCountryCode }}</span>
+                  </div>
+                  <input type="number" id="inputMobileNumber" class="form-control" [(ngModel)]="mobileNumber"
+                    name="mobileNumber" required />
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-lg btn-block loginbtn" [disabled]="!createSignupForm.valid"
+            (click)="signUp()">
+            Sign Up
+          </button>
+        </form>
+        <!-- <button class="btn btn-lg btn-block loginbtn" type="button" (click)="signinFunction()">Sign in</button> -->
+      </div>
+    </div>
+    <div class="col-sm"></div>
+  </div>
+</div>
+<nav class="navbar navbar-dark bg-primary mt-5 fixed-bottom">
+  <div class="navbar-expand m-auto navbar-text">
+    Made with <i class="fa fa-heart"></i> by <a target="_blank">Amrin Mulani</a>
+  </div>
+</nav>

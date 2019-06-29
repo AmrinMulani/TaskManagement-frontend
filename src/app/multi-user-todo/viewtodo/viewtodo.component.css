@@ -1,0 +1,21 @@
+a.active {
+  color: #fff !important;
+}
+.pricing_header {
+  background: none repeat scroll 0% 0% rgb(44, 62, 80);
+  border-radius: 5px 5px 0px 0px;
+  transition: background 0.4s ease-out 0s;
+}
+.title {
+  margin-top: 5px;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.card-title {
+  padding: 10px;
+}
+
+.task-completed {
+  text-decoration: line-through;
+}

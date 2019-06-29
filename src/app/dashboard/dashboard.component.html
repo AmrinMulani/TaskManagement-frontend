@@ -1,0 +1,45 @@
+<app-navigation>
+
+  <div class="row">
+    <div class="col-4">
+      <div class="card">
+        <div class="card-content">
+          <div class="list-group" id="list-tab" role="tablist" *ngIf="toDoListArray">
+            <a class="list-group-item list-group-item-action " id="list-profile-list" data-toggle="list"
+              href="#list-profile" (click)="getAllToDoTask(list.listId)" role="tab" aria-controls="profile"
+              *ngFor="let list of toDoListArray">
+              {{list.title}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="card">
+        <div class="card-content">
+          <div class="list-group" id="list-tab" role="tablist" *ngIf="toDoListTaskArray">
+            <a class="list-group-item list-group-item-action " id="list-profile-list" data-toggle="list"
+              href="#list-profile" (click)="getAllToDoSubTask(list.taskId)" role="tab" aria-controls="profile"
+              *ngFor="let list of toDoListTaskArray?.itemTodo">
+              {{list.title}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12 col-md-4 col-lg-4">
+      <div class="card">
+        <div class="card-content">
+          <div class="list-group" id="list-tab" role="tablist" *ngIf="subToDoListItemArray">
+            <a class="list-group-item list-group-item-action " id="list-profile-list" data-toggle="list"
+              href="#list-profile" role="tab" aria-controls="profile"
+              *ngFor="let list of subToDoListItemArray?.subitemTodo">
+              {{list.title}}</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</app-navigation>
+
+<router-outlet></router-outlet>

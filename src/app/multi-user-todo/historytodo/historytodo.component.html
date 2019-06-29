@@ -1,0 +1,32 @@
+<app-navigation>
+
+  <div class="row">
+
+    <div class="col-xs-12 col-12">
+      <pagination [totalItems]="totalRec" [(ngModel)]="currentPage" [itemsPerPage]="5"
+        (pageChanged)="pageChanged($event)">
+      </pagination>
+      <div class="form-group social-btn">
+        <button class="btn btn-success" [disabled]="historyTrans.length<2" (click)="undoList()"> Undo List </button>
+        <button class="btn btn-warning pull-right" type="button" (click)="goBackToPreviousPage()">
+          Go Back </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="my-3 p-3 bg-white rounded shadow-sm">
+
+    <h6 class="border-bottom border-gray pb-2 mb-0">Recent updates</h6>
+    <div class="" *ngIf="historyTrans">
+      <div class="media text-muted pt-3" *ngFor="let history of historyTrans">
+        <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+          <strong class="d-block text-gray-dark">@{{history.editBy}}</strong>
+          <strong class="pull-right">{{history.createdOn |date:'medium'}}</strong>{{history.remarks}}
+        </p>
+
+      </div>
+
+
+    </div>
+  </div>
+</app-navigation>
